@@ -23,7 +23,7 @@ module.exports = function (dir, codec, keyCodec) {
   var ready = false
   function mkdir (cb) {
     if(ready) cb()
-    else mkdirp(dir, function () {
+    else mkdirp(dir).then(() => {
       ready = true
       cb()
     })
