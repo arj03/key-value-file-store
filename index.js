@@ -21,12 +21,11 @@ module.exports = function (dir, codec, keyCodec) {
     : function (e) { return e }
 
   var ready = false
-  function mkdir (cb) {
-    if(ready) cb()
-    else mkdirp(dir).then(() => {
-      ready = true
-      cb()
-    })
+  function ensureDirExists() {
+    if (ready) return
+
+    mkdirp.sync(dir)
+    ready = true
   }
 
   function toPath(id) {
@@ -43,8 +42,7 @@ module.exports = function (dir, codec, keyCodec) {
   }, function write (id, value, cb) {
     try { value = codec.encode(value) }
     catch (err) { return cb(err) }
-    mkdir(function () {
-      atomic.writeFile(toPath(id), value, cb)
-    })
+    ensureDirExists()
+    atomic.writeFile(toPath(id), value, cb)
   })
 }
