@@ -1,16 +1,13 @@
 'use strict'
 var json = require('./json')
 var Store = require('./store')
-var fs = require('fs')
+var atomic = require('atomic-file-rw')
 var path = require('path')
 var mkdirp = require('mkdirp')
 
 module.exports = function (dir, codec, keyCodec) {
-  if(!dir || !fs.readFile) {
-    if(!dir)
-      console.error('lossy store missing dir, skipping persistence')
-    else
-      console.error('lossy store has no fs access, skipping persistence')
+  if(!dir) {
+    console.error('lossy store missing dir, skipping persistence')
 
     return Store(
       function (v, cb) { cb() },
@@ -37,7 +34,7 @@ module.exports = function (dir, codec, keyCodec) {
   }
 
   return Store(function read (id, cb) {
-    fs.readFile(toPath(id), function (err, value) {
+    atomic.readFile(toPath(id), function (err, value) {
       if(err) return cb(err)
       try { value = codec.decode(value) }
       catch (err) { return cb(err) }
@@ -47,11 +44,7 @@ module.exports = function (dir, codec, keyCodec) {
     try { value = codec.encode(value) }
     catch (err) { return cb(err) }
     mkdir(function () {
-      fs.writeFile(toPath(id), value, cb)
+      atomic.writeFile(toPath(id), value, cb)
     })
   })
 }
-
-
-
-
