@@ -1,7 +1,7 @@
 {
   "name": "key-value-file-store",
   "description": "",
-  "version": "1.2.4",
+  "version": "1.0.0",
   "homepage": "https://github.com/arj03/key-value-file-store",
   "repository": {
     "type": "git",
