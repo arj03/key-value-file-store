@@ -1,15 +1,16 @@
-# lossy-store
+# Key value file store
 
-simple mini database that does not promise durability, for when you do not need it!
+Simple key value store where and each value is a file.
 
-It's a key value store, and each value is a file. Each value is stored in it's own file.
+This project is a fork of [lossy-store] where raw fs is replaced with
+[atomic-file-rw] to provide browser support.
 
 ## api
 
 ### store = LossyStore(dir, codec?)
 
-create a lossy store with the given [codec](https://www.npmjs.com/package/flumecodec)
-(or JSON by default) at the `dir`
+create a lossy store with the given [codec] (or JSON by default) at
+the `dir`
 
 ### store.has(key)
 
@@ -36,3 +37,7 @@ Set a new value. this will trigger a write to be performed (at some point)
 ## License
 
 MIT
+
+[lossy-store]: https://github.com/dominictarr/lossy-store
+[codec]: https://www.npmjs.com/package/flumecodec
+[atomic-file-rw]: https://github.com/ssb-ngi-pointer/atomic-file-rw

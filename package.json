@@ -1,11 +1,11 @@
 {
-  "name": "lossy-store",
+  "name": "key-value-file-store",
   "description": "",
   "version": "1.2.4",
-  "homepage": "https://github.com/dominictarr/lossy-store",
+  "homepage": "https://github.com/arj03/key-value-file-store",
   "repository": {
     "type": "git",
-    "url": "git://github.com/dominictarr/lossy-store.git"
+    "url": "git://github.com/arj03/key-value-file-store.git"
   },
   "dependencies": {
     "atomic-file-rw": "^0.2.2",
@@ -19,5 +19,8 @@
     "test": "set -e; for t in test/*.js; do node $t; done"
   },
   "author": "'Dominic Tarr' <dominic.tarr@gmail.com> (http://dominictarr.com)",
+  "contributors": [
+    "Anders Rune Jensen <arj03@protonmail.ch>"
+  ],
   "license": "MIT"
 }
