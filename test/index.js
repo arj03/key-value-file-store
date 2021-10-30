@@ -1,4 +1,3 @@
-
 var tape = require('tape')
 var Store = require('../store')
 
@@ -31,7 +30,6 @@ function Mock() {
 }
 
 tape('simple', function (t) {
-
   var mock = Mock()
   var store = Store(mock.read, mock.write)
 
@@ -41,7 +39,6 @@ tape('simple', function (t) {
 })
 
 tape('ensure', function (t) {
-
   var mock = Mock(), ensure
   var store = Store(mock.read, mock.write)
 
@@ -59,7 +56,6 @@ tape('ensure', function (t) {
 
 
 tape('write only once at a time', function (t) {
-
   var mock = Mock(), ensure
   var store = Store(mock.read, mock.write)
   var data = {}
@@ -74,11 +70,9 @@ tape('write only once at a time', function (t) {
   }
   t.deepEqual(data, {foo: 1, bar: 2, baz: 3})
   t.end()
-
 })
 
 tape('set fires ensure', function (t) {
-
   var mock = Mock(), ensure
   var store = Store(mock.read, mock.write)
 
@@ -94,5 +88,4 @@ tape('set fires ensure', function (t) {
   t.ok(ensure)
 
   t.end()
-
 })

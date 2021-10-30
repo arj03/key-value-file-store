@@ -8,8 +8,7 @@
     "url": "git://github.com/arj03/key-value-file-store.git"
   },
   "dependencies": {
-    "atomic-file-rw": "^0.2.2",
-    "mkdirp": "^1.0.4"
+    "atomic-file-rw": "^0.2.2"
   },
   "devDependencies": {
     "base64-url": "^2.3.3",

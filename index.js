@@ -3,11 +3,10 @@ var json = require('./json')
 var Store = require('./store')
 var atomic = require('atomic-file-rw')
 var path = require('path')
-var mkdirp = require('mkdirp')
 
 module.exports = function (dir, codec, keyCodec) {
-  if(!dir) {
-    console.error('lossy store missing dir, skipping persistence')
+  if (!dir) {
+    console.error('key-value-file-store missing dir, skipping persistence')
 
     return Store(
       function (v, cb) { cb() },
@@ -19,14 +18,6 @@ module.exports = function (dir, codec, keyCodec) {
   var keyEncode = keyCodec
     ? keyCodec.encode || keyCodec
     : function (e) { return e }
-
-  var ready = false
-  function ensureDirExists() {
-    if (ready) return
-
-    mkdirp.sync(dir)
-    ready = true
-  }
 
   function toPath(id) {
     return path.join(dir, keyEncode(id))
@@ -42,7 +33,6 @@ module.exports = function (dir, codec, keyCodec) {
   }, function write (id, value, cb) {
     try { value = codec.encode(value) }
     catch (err) { return cb(err) }
-    ensureDirExists()
     atomic.writeFile(toPath(id), value, cb)
   })
 }
