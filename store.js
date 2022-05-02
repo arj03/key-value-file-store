@@ -3,7 +3,7 @@ function isEmpty (o) {
   for(var k in o) return false
   return true
 }
-module.exports = function (read, write) {
+module.exports = function (read, write, del) {
 
   var store = {}, dirty = {}, reading = {}, writing = false, waiting = []
 
@@ -28,10 +28,18 @@ module.exports = function (read, write) {
       if(dirty[k]) {
         dirty[k] = false
         writing = true
-        return write(k, store[k], function (err) {
-          writing = false
-          _write()
-        })
+        var val = store[k]
+        if (val === void 0) {
+          return del(k, function (err) {
+            writing = false
+            _write()
+          })
+        } else {
+          return write(k, val, function (err) {
+            writing = false
+            _write()
+          })
+        }
       }
     }
     //if we wrote something, we returned.
@@ -73,6 +81,12 @@ module.exports = function (read, write) {
       //not urgent, but save this if we are not doing anything.
       dirty[key] = true
       apply_write(key, value)
+    },
+    delete: function (key) {
+      store[key] = void 0
+      //not urgent, but save this if we are not doing anything.
+      dirty[key] = true
+      apply_write(key, void 0)
     },
     onDrain: function (cb) {
       if(isEmpty(dirty)) cb()

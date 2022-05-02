@@ -34,6 +34,10 @@ return the currently set `value` for `key`. may be null.
 
 Set a new value. this will trigger a write to be performed (at some point)
 
+### store.delete(key)
+
+Delete a key-value from the store.
+
 ## License
 
 MIT
