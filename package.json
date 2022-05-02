@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git://github.com/arj03/key-value-file-store.git"
   },
+  "files": [
+    "*.js"
+  ],
   "dependencies": {
     "atomic-file-rw": "^0.3.0"
   },
