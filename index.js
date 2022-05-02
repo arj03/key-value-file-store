@@ -35,6 +35,6 @@ module.exports = function (dir, codec, keyCodec) {
     catch (err) { return cb(err) }
     atomic.writeFile(toPath(id), value, cb)
   }, function del (id, cb) {
-    atomic.delete(toPath(id), cb)
+    atomic.deleteFile(toPath(id), cb)
   })
 }
