@@ -89,3 +89,16 @@ tape('set fires ensure', function (t) {
 
   t.end()
 })
+
+tape('delete', function (t) {
+  var mock = Mock()
+  var store = Store(mock.read, mock.write)
+
+  store.set('foo', 123)
+  t.equals(store.get('foo'), 123)
+
+  store.delete('foo')
+  t.equals(store.get('foo'), undefined)
+
+  t.end()
+})
